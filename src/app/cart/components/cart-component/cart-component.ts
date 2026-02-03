@@ -35,4 +35,12 @@ export class CartComponent implements OnInit {
     this.router.navigate(['/billing']);
   }
 
+  getTotalPrice(): number {
+    return this.items().reduce((total, product) => total + (product.price || 0), 0);
+  }
+
+  clearCart() {
+    this.cardService.clearCart();
+  }
+
 }

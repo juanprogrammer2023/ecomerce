@@ -1,17 +1,58 @@
 <div class="w-full p-4">
-  <h1 class="text-2xl font-bold mb-6">Carrito de compras</h1>
+  <div class="flex justify-between items-center mb-6">
+    <h1 class="text-2xl font-bold">Carrito de compras</h1>
+    <div class="text-sm text-gray-500">
+      {{ items().length }} {{ items().length === 1 ? 'producto' : 'productos' }}
+    </div>
+  </div>
   
   <div class="space-y-4 w-full">
     @for (item of items(); track item.id) {
       <app-cart-item-component [product]="item"></app-cart-item-component>
     }
-    <button (click)="generateInvoice()"> generar factura</button>
   </div>
   
+  <!-- Resumen del carrito -->
+  @if (items().length > 0) {
+    <div class="mt-8 p-4 bg-gray-50 rounded-lg">
+      <div class="flex justify-between items-center mb-4">
+        <span class="text-lg font-semibold">Total:</span>
+        <span class="text-2xl font-bold text-green-600">
+          ${{ getTotalPrice() }}
+        </span>
+      </div>
+      <div class="flex gap-2">
+        <button 
+          (click)="clearCart()"
+          class="flex-1 px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors"
+        >
+          Vaciar carrito
+        </button>
+        <button 
+          (click)="generateInvoice()"
+          class="flex-1 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+        >
+          Generar factura
+        </button>
+      </div>
+    </div>
+  }
+  
   @if (items().length === 0) {
-    <div class="text-center py-8 text-gray-500">
-      <p>Tu carrito está vacío :/</p>
-      <a routerLink="/products" class="text-blue-600 hover:underline">
+    <div class="text-center py-16">
+      <div class="mb-4">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-24 w-24 mx-auto text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+        </svg>
+      </div>
+      <p class="text-xl text-gray-500 mb-4">Tu carrito está vacío</p>
+      <a 
+        routerLink="/products" 
+        class="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+        </svg>
         Ver productos
       </a>
     </div>

@@ -27,5 +27,8 @@ export class CardService {
     return this.cartItems.value.length > 0;
   }
 
-  
+  clearCart() {
+    this.cartItems.next([]);
+  }
+
 }

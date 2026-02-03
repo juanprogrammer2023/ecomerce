@@ -5,6 +5,8 @@ import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { CartModule } from './cart/cart.module';  
 import { BillingModule } from './billing/billing-module';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +16,9 @@ import { BillingModule } from './billing/billing-module';
     RouterLink,
     CommonModule,
     CartModule,
-    BillingModule
+    BillingModule,
+    MatFormFieldModule,
+    MatSelectModule,
   ],
   templateUrl: './app.html',
   styleUrl: './app.css'

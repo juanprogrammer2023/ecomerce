@@ -1,4 +1,117 @@
-<h1>Resume of products</h1>
+<div class="bg-white rounded-lg shadow-lg overflow-hidden">
+  <!-- Header -->
+  <div class="bg-gradient-to-r from-blue-600 to-blue-700 text-white p-6">
+    <h1 class="text-2xl font-bold mb-2">Resumen de Compra</h1>
+    <p class="text-blue-100">Revisa los detalles de tu pedido antes de continuar</p>
+  </div>
+
+  <!-- Items List -->
+  <div class="p-6">
+    @if (products$ | async; as products) {
+      @if (products.length > 0) {
+        <div class="space-y-4">
+          @for (product of products; track product.id) {
+            <div class="flex items-center space-x-4 p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+              <!-- Product Image -->
+              <div class="w-16 h-16 bg-gray-200 rounded-md overflow-hidden flex-shrink-0">
+                <img 
+                  [src]="product.images[0] || '/images/no-image.png'"
+                  [alt]="product.title"
+                  class="w-full h-full object-cover"
+                >
+              </div>
+              
+              <!-- Product Info -->
+              <div class="flex-1 min-w-0">
+                <h3 class="font-semibold text-gray-900 truncate">
+                  {{ product.title }}
+                </h3>
+                <p class="text-sm text-gray-500">
+                  Código: {{ product.id }}
+                </p>
+                <p class="text-lg font-bold text-green-600">
+                  ${{ product.price }}
+                </p>
+              </div>
+              
+              <!-- Quantity and Subtotal -->
+              <div class="text-right">
+                <p class="text-sm text-gray-500">Cantidad: 1</p>
+                <p class="font-semibold text-gray-900">
+                  Subtotal: ${{ product.price }}
+                </p>
+              </div>
+            </div>
+          }
+        </div>
+        
+        <!-- Summary Section -->
+        <div class="mt-6 border-t pt-6">
+          <div class="space-y-2">
+            <div class="flex justify-between text-gray-600">
+              <span>Subtotal:</span>
+              <span>${{ getSubtotal() }}</span>
+            </div>
+            <div class="flex justify-between text-gray-600">
+              <span>IVA (19%):</span>
+              <span>${{ getTax() }}</span>
+            </div>
+            <div class="flex justify-between text-xl font-bold text-gray-900 pt-2 border-t">
+              <span>Total:</span>
+              <span class="text-green-600">${{ getTotal() }}</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Action Buttons -->
+        <div class="mt-6 flex gap-3">
+          <button 
+            routerLink="/cart"
+            class="flex-1 px-4 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors font-medium"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            </svg>
+            Volver al Carrito
+          </button>
+          <button 
+            (click)="confirmOrder()"
+            class="flex-1 px-4 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            Confirmar Pedido
+          </button>
+        </div>
+      } @else {
+        <!-- Empty State -->
+        <div class="text-center py-12">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-24 w-24 mx-auto text-gray-300 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+          </svg>
+          <h3 class="text-xl font-semibold text-gray-900 mb-2">No hay productos en el carrito</h3>
+          <p class="text-gray-500 mb-6">Agrega productos para continuar con la compra</p>
+          <a 
+            routerLink="/products"
+            class="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+            </svg>
+            Ver Productos
+          </a>
+        </div>
+      }
+    } @else {
+      <!-- Loading State -->
+      <div class="text-center py-12">
+        <div class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+        <p class="mt-4 text-gray-500">Cargando resumen...</p>
+      </div>
+    }
+  </div>
+</div>
 
 
 
