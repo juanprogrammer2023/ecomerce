@@ -30,5 +30,13 @@ addToCart(product: Product) {
     this.cardService.addToCart(product);
 }
 
+onImageError(event: Event) {
+    console.log('Error al cargar la imagen');
+  const img = event.target as HTMLImageElement;
+  console.log('🔄 Cambiando a:', '/images/no-image.png');
+  img.src = '/images/no-image.png'; // Reemplaza con imagen por defecto
+}
+
+
 
 }

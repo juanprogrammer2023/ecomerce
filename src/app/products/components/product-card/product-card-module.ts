@@ -4,10 +4,9 @@ import { ProductCard } from './product-card';
 import { SafeImagePipe } from '../../pipes/safe-image-pipe';
 
 @NgModule({
-  declarations: [ProductCard],
+  declarations: [ProductCard,SafeImagePipe],
   imports: [
     CommonModule,
-    SafeImagePipe
 
   ],
   exports: [ProductCard]

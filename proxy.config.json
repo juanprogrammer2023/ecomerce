@@ -1,0 +1,11 @@
+{
+  "/api-img": {
+    "target": "https://api.escuelajs.co",
+    "secure": true,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/api-img": ""
+    },
+    "logLevel": "debug"
+  }
+}
