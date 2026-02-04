@@ -5,6 +5,7 @@ import {Router} from '@angular/router';
 import {ActivatedRoute} from '@angular/router';
 import {CardService} from '../../../cart/services/card.service';
 
+
 @Component({
   selector: 'app-product-card',
   standalone:false,

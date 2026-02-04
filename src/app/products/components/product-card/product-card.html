@@ -2,7 +2,7 @@
     <div class="relative h-56 w-full mb-4 overflow-hidden rounded-lg">
         <img 
             class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-             [src]="product()?.images?.[0] || '/images/no-image.png'"
+            [src]="product()?.images?.[0] | safeImage"
              [alt]="product()?.title"
         >
     </div>

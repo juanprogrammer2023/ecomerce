@@ -1,4 +1,4 @@
-import { Component, WritableSignal, signal } from '@angular/core';
+import { Component,WritableSignal,output, signal } from '@angular/core';
 import { InvoiceItem } from '../../adapters/product.adapter.adapter';
 import { CardService } from '../../../cart/services/card.service';
 import { inject } from '@angular/core';
@@ -16,6 +16,8 @@ import { Observable } from 'rxjs';
 })
 export class BillingItemsSummary {
 
+      emitConstumer=output<InvoiceItem[]>();
+
       cardService = inject(CardService);
       invoiceItems: WritableSignal<InvoiceItem[]> = signal([]);
       products$ = this.cardService.getCartItems();
@@ -26,6 +28,12 @@ export class BillingItemsSummary {
         this.products$.subscribe(products => {
           this.invoiceItems.set(this.maperProductsToInvoiceItems(products));
         });
+
+        this.emitInvoiceItems();
+      }
+
+      emitInvoiceItems() {
+        this.emitConstumer.emit(this.invoiceItems());
       }
 
       maperProductsToInvoiceItems(products: Product[]): InvoiceItem[] {

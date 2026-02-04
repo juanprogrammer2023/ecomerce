@@ -1,10 +1,12 @@
-import { Component, inject, OnInit, OnDestroy } from '@angular/core';
+import { Component, inject, OnInit, OnDestroy, output } from '@angular/core';
 import { 
   FormGroup, 
   Validators, 
   FormBuilder,
 } from '@angular/forms';    
 import { Subject, takeUntil } from 'rxjs';
+import { CustomerModel } from '../../models/customer-model.model';
+
 
 @Component({
   selector: 'app-billing-customer-form',
@@ -14,7 +16,7 @@ import { Subject, takeUntil } from 'rxjs';
 })
 export class BillingCustomerForm implements OnInit, OnDestroy {
 
-
+  emitCustomer=output<CustomerModel>();
 
   fb = inject(FormBuilder);
   customerForm: FormGroup;
@@ -64,11 +66,17 @@ export class BillingCustomerForm implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.validarCampoIdentification();
     this.validarCampoLegalOrganization();
+
   }
 
   ngOnDestroy(): void {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
+  }
+
+  emitCustomerForm(){
+    console.log(this.customerForm.value);
+    this.emitCustomer.emit(this.customerForm.value);
   }
 
   validarCampoIdentification(){
