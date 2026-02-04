@@ -11,4 +11,5 @@ export interface CustomerModel {
   legal_organization_id: number;
   tribute_id: number;
   municipality_id?: number;
+  numeros?: number;
 }
